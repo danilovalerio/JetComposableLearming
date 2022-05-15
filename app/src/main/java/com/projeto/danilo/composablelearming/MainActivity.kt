@@ -77,7 +77,7 @@ fun CreateCirlcle() {
         elevation = 10.dp
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Text(text = "Toque")
+            Text(text = "Toque $moneyAccount")
         }
 
     }

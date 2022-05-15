@@ -65,11 +65,13 @@ fun ShowAge(age: Int = 33) {
 
 @Composable
 fun CreateCirlcle() {
+    var moneyAccount = 0
     Card(modifier = Modifier
         .padding(12.dp)
         .size(105.dp)
         .clickable {
-            Utils.logMessage("Toque no Creative Circle")
+            moneyAccount++
+            Utils.logMessage("Cique no Creative Circle: $moneyAccount")
         },
         shape = CircleShape,
         elevation = 10.dp

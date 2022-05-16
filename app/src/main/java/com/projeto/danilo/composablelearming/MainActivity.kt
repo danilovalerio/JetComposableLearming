@@ -35,6 +35,10 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun MyApp(){
+    var moneyAccount = remember {
+        mutableStateOf(0)
+    }
+
     Surface(modifier =
     Modifier
         .fillMaxHeight()
@@ -42,13 +46,21 @@ fun MyApp(){
         color = MaterialTheme.colors.primary) {
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "R$ 100,00", style = TextStyle(
+            Text(text = "${moneyAccount.value}", style = TextStyle(
                 color = Color.White,
                 fontSize = 35.sp,
                 fontWeight = FontWeight.ExtraBold
             ))
             Spacer(modifier = Modifier.height(120.dp))
-            CreateCirlcle()
+            CreateCirlcle(moneyAccount.value) {
+                /**
+                 * Aqui no calback passaremos a função lambda para somar 1 no contador
+                 */
+                moneyAccount.value += 1
+            }
+            if (moneyAccount.value > 15) {
+                Text(text = "Meta atingida!")
+            }
         }
     }
 }
@@ -64,11 +76,8 @@ fun ShowAge(age: Int = 33) {
 }
 
 @Composable
-fun CreateCirlcle() {
+fun CreateCirlcle(moneyAccount: Int = 0, updateMoneyCounter: (Int) -> Unit) {
     //TODO Ao clicar no botao deve atualizar o campo de valor fora desse componente também
-    var moneyAccount = remember {
-        mutableStateOf(0)
-    }
 
 //    var moneyAccount by remember {
 //        mutableStateOf(0)
@@ -77,14 +86,15 @@ fun CreateCirlcle() {
         .padding(12.dp)
         .size(105.dp)
         .clickable {
-            moneyAccount.value++
-            Utils.logMessage("Cique no Creative Circle: ${moneyAccount.value}")
+//            moneyAccount.value++
+            Utils.logMessage("Cique no Creative Circle: ${moneyAccount}")
+            updateMoneyCounter(moneyAccount)
         },
         shape = CircleShape,
         elevation = 10.dp
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Text(text = "Toque ${moneyAccount.value}")
+            Text(text = "+1",)
         }
 
     }

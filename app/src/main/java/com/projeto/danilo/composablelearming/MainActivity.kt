@@ -65,21 +65,25 @@ fun ShowAge(age: Int = 33) {
 
 @Composable
 fun CreateCirlcle() {
-    var moneyAccount by remember {
+    var moneyAccount = remember {
         mutableStateOf(0)
     }
+
+//    var moneyAccount by remember {
+//        mutableStateOf(0)
+//    }
     Card(modifier = Modifier
         .padding(12.dp)
         .size(105.dp)
         .clickable {
-            moneyAccount++
-            Utils.logMessage("Cique no Creative Circle: $moneyAccount")
+            moneyAccount.value++
+            Utils.logMessage("Cique no Creative Circle: ${moneyAccount.value}")
         },
         shape = CircleShape,
         elevation = 10.dp
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Text(text = "Toque $moneyAccount")
+            Text(text = "Toque ${moneyAccount.value}")
         }
 
     }
